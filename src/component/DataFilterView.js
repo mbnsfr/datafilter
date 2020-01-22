@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import OprandView from './OprandView';
-
 
 const DataFilterView = (props) => {
   const { filterData, constraints, fields } = props;

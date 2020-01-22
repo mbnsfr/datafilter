@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import {
   Record,
 } from 'immutable';
@@ -13,7 +12,6 @@ const setConstraint = ({ setData }) => (selectedConstraint) => {
 
 const setFieldValue = ({ data, setData }) => (fieldValue) => {
   data.query._where = {};
-  // eslint-disable-next-line default-case
   switch (data.selectedConstraint) {
     case 'EqualTo':
       setData((d) => d.merge({
@@ -83,8 +81,8 @@ const setFieldName = ({ setData }) => (fieldName) => {
 };
 
 const init = (props) => Record({
-  fieldValue: undefined,
   fieldName: 'name',
+  fieldValue: props.query._where[init.fieldName],
   query: props.query,
   selectedConstraint: 'EqualTo',
 

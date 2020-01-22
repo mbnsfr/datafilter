@@ -35,52 +35,49 @@ const OprandView = (props) => {
 
   return (
     <Tree>
-      <TreeNode title={<OprandBox addClouse={addClouse} />}>
+      <TreeNode title={<OprandBox addClouse={addClouse} />}>v
         {
-            data.childs.map((item, index) => {
-              if (item.op && (item.childs.length >= 0)) {
-                return (
-                  <TreeNode
-                    key={index}
-                    title={(
-                      <OprandView
-                        filterData={item}
-                        constraints={props.constraints}
-                        fields={props.fields}
-                      />
-)}
-                  />
-                );
-              }
+          data.childs.map((item, index) => {
+            if (item.op && (item.childs.length >= 0)) {
+              return (
+                <TreeNode
+                  key={index}
+                  title={(
+                    <OprandView
+                      filterData={item}
+                      constraints={props.constraints}
+                      fields={props.fields}
+                    />
+                  )}
+                />
+              );
+            }
 
-              if (item) {
-                return (
-                  <TreeNode
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={index}
-                    title={(
-                      <ClouseView
-                        deleteClouse={deleteClouse}
-                        queryIndex={index}
-                        query={item}
-                        fields={fields}
-                        constraints={constraints}
-                      />
-                    )}
-                  />
-                );
-              }
-            })
-          }
+            if (item) {
+              return (
+                <TreeNode
+                  key={index}
+                  title={(
+                    <ClouseView
+                      deleteClouse={deleteClouse}
+                      queryIndex={index}
+                      query={item}
+                      fields={fields}
+                      constraints={constraints}
+                    />
+                  )}
+                />
+              );
+            }
+          })
+        }
       </TreeNode>
     </Tree>
   );
 };
 
 OprandView.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   fields: PropTypes.object.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
   constraints: PropTypes.object.isRequired,
 };
 

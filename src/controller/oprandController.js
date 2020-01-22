@@ -6,9 +6,7 @@ import {
   withState, withHandlers, pipe,
 } from '../util';
 
-
 const ClouseQuery = Parse.Object.extend('ClouseQuery');
-
 
 const init = (props) => props.filterData;
 
