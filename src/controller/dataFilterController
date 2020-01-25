@@ -1,0 +1,23 @@
+import Parse from 'parse';
+import {
+  Record,
+} from 'immutable';
+import {
+  withState, withHandlers, pipe,
+} from '../util';
+
+const init = (props) => props.filterData;
+
+const deleteOperand = ({ setData,data }) => (index) => {
+  console.log(data)
+  setData((d) => d.set('childs', d.childs.filter((value, i) => i !== index)));
+}
+
+const dataFilterController = pipe(
+  withState(init),
+  withHandlers({
+    deleteOperand,
+  }),
+);
+
+export default dataFilterController;

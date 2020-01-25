@@ -82,10 +82,9 @@ const setFieldName = ({ setData }) => (fieldName) => {
 
 const init = (props) => Record({
   fieldName: 'name',
-  fieldValue: props.query._where[init.fieldName],
+  fieldValue: undefined,
   query: props.query,
   selectedConstraint: 'EqualTo',
-
 });
 
 const clouseController = pipe(

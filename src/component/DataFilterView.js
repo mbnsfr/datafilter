@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import OprandView from './OprandView';
 
 const DataFilterView = (props) => {
+
   const { filterData, constraints, fields } = props;
+
   const filtergenerator = () => {
     if (filterData.op) {
       return (
@@ -15,12 +17,16 @@ const DataFilterView = (props) => {
       );
     }
   };
+
   return (filtergenerator());
+
 };
 
 DataFilterView.propTypes = {
 
   filterData: PropTypes.object.isRequired,
+  constraints: PropTypes.object.isRequired,
+  fields: PropTypes.object.isRequired,
 
 };
 

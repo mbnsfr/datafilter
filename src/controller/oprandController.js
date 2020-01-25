@@ -1,6 +1,6 @@
 import Parse from 'parse';
 import {
-  Record,
+  Record
 } from 'immutable';
 import {
   withState, withHandlers, pipe,
@@ -15,25 +15,30 @@ const addClouse = ({ setData }) => () => {
   setData((d) => d.set('childs', d.childs.concat(query)));
 };
 
-const deleteClouse = ({ setData }) => (index) => {
-  setData((d) => d.set('childs', d.childs.filter((value, i) => i !== index)));
+const addOprand = ({ setData }) => () => {
+  setData((d) => d.set('childs', d.childs.concat(Record({ op: 'and', childs: [] })())));
 };
 
 const changeOprand = ({ setData }) => (oprand) => {
   setData((d) => d.set('op', oprand));
 };
 
-const addOprand = ({ setData }) => () => {
-  setData((d) => d.set('childs', d.childs.concat(Record({ op: 'and', childs: [] })())));
+const deleteOperand = ({ setData }) => () => {
+  setData()
+}
+
+const deleteClouse = ({ setData }) => (index) => {
+  setData((d) => d.set('childs', d.childs.filter((value, i) => i !== index)));
 };
 
 const oprandController = pipe(
   withState(init),
   withHandlers({
     addClouse,
+    deleteOperand,
     deleteClouse,
-    changeOprand,
     addOprand,
+    changeOprand,
   }),
 );
 
