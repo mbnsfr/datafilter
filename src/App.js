@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map, Record } from 'immutable';
-import DataFilterView from './component/DataFilterView';
+import OprandView from './component/OprandView';
 import './App.css';
 
 const fields = Map({
@@ -63,9 +63,8 @@ const constraints = Map({
 const filterData = Record({ op: 'and', childs: [] })();
 
 function App() {
-  console.log('filterData in app', filterData)
   return (
-    <DataFilterView
+    <OprandView
       filterData={filterData}
       constraints={constraints}
       fields={fields}

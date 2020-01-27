@@ -1,10 +1,10 @@
 import Parse from 'parse';
 import { Record } from 'immutable';
-import { withState, withHandlers, pipe, withLifecycle } from '../util';
+import { withState, withHandlers, pipe } from '../util';
 
 const ClouseQuery = Parse.Object.extend('ClouseQuery');
 
-const init = Record({ op: 'and', childs: [] })()
+const init = (props) => props.filterData
 
 const addClouse = ({ setData }) => () => {
   const query = new Parse.Query(ClouseQuery);
@@ -19,26 +19,17 @@ const changeOprand = ({ setData }) => (oprand) => {
   setData((d) => d.set('op', oprand));
 };
 
-const deleteClouse = ({ setData }) => (index) => {
+const onDelete = ({ setData }) => (index) => {
   setData((d) => d.set('childs', d.childs.filter((value, i) => i !== index)));
-};
-
-const onUpdate = props => {
-  if (props) {
-    props.updatedata(props.data)
-  }
 };
 
 const oprandController = pipe(
   withState(init),
   withHandlers({
     addClouse,
-    deleteClouse,
+    onDelete,
     addOprand,
     changeOprand,
-  }),
-  withLifecycle({
-    onUpdate,
   }),
 );
 

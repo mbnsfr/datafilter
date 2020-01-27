@@ -13,18 +13,18 @@ const OprandView = (props) => {
 
   const {
     addClouse,
-    deleteClouse,
+    onDelete,
     data,
     addOprand,
     changeOprand,
   } = oprandController(props);
 
   const {
-    deleteOperand,
     fields,
     constraints,
     operandIndex,
-    updatedata,
+    filterData,
+    deleteOperand
   } = props;
 
   const OprandBox = () => (
@@ -39,12 +39,9 @@ const OprandView = (props) => {
         <Icon component={filterIcon} />
       </Button>
       <Button icon="close" onClick={() => deleteOperand(operandIndex)}></Button>
-      <Button onClick={() => updatedata(data)}>on update</Button>
     </InputGroup>
 
   );
-
-  console.log('index', operandIndex)
 
   return (
     <Tree
@@ -59,12 +56,11 @@ const OprandView = (props) => {
                     key={index}
                     title={(
                       <OprandView
+                        deleteOperand={onDelete}
                         filterData={item}
                         constraints={props.constraints}
                         fields={props.fields}
                         operandIndex={index}
-                        deleteOperand={deleteOperand}
-                        updatedata={updatedata}
                       />
                     )}
                   />
@@ -77,7 +73,7 @@ const OprandView = (props) => {
                     key={index}
                     title={(
                       <ClouseView
-                        deleteClouse={deleteClouse}
+                        deleteClouse={onDelete}
                         queryIndex={index}
                         query={item}
                         fields={fields}
@@ -101,7 +97,7 @@ OprandView.propTypes = {
   constraints: PropTypes.object.isRequired,
   operandIndex: PropTypes.object.isRequired,
   deleteOperand: PropTypes.func.isRequired,
-  updatedata: PropTypes.func.isRequired,
+  filterData: PropTypes.object.isRequired,
 
 };
 

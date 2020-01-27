@@ -49,15 +49,13 @@ const ClouseView = (props) => {
     setFieldValue,
   } = clouseController(props);
 
-  // updatedata(data, 'cluose')
-
   const generateInputByType = (fieldType) => {
     switch (fieldType) {
       case 'string':
-        if (query.toJSON().where[data.fieldName]) {
+        if (query.toJSON().where[(fields.get(Object.keys(query.toJSON().where)[0] || data.fieldName))]) {
           return (
             <Input
-              value={String(query.toJSON().where[data.fieldName])}
+              value={String(query.toJSON().where[(fields.get(Object.keys(query.toJSON().where)[0] || data.fieldName))])}
               style={{ width: '20vw' }}
               placeholder="String"
               onChange={(e) => setFieldValue(e.target.value)}
@@ -73,10 +71,10 @@ const ClouseView = (props) => {
           )
         }
       case 'time':
-        if (query.toJSON().where[data.fieldName]) {
+        if (query.toJSON().where[(fields.get(Object.keys(query.toJSON().where)[0] || data.fieldName))]) {
           return (
             <DatePicker
-              defaultValue={moment(String(query.toJSON().where[data.fieldName]), "YYYYMMDD")}
+              defaultValue={moment(String(query.toJSON().where[(fields.get(Object.keys(query.toJSON().where)[0] || data.fieldName))]), "YYYYMMDD")}
               style={{ width: '10vw' }}
               onChange={(date, dateString) => setFieldValue(dateString)}
             />
@@ -90,10 +88,10 @@ const ClouseView = (props) => {
           )
         }
       case 'number':
-        if (query.toJSON().where[data.fieldName]) {
+        if (query.toJSON().where[(fields.get(Object.keys(query.toJSON().where)[0] || data.fieldName))]) {
           return (
             <Input
-              value={String(query.toJSON().where[data.fieldName])}
+              value={query.toJSON().where[(fields.get(Object.keys(query.toJSON().where)[0] || data.fieldName))]}
               style={{ width: '10vw' }}
               placeholder="Number"
               type="number"
@@ -111,10 +109,10 @@ const ClouseView = (props) => {
           )
         }
       case 'boolean':
-        if (query.toJSON().where[data.fieldName]) {
+        if (query.toJSON().where[(fields.get(Object.keys(query.toJSON().where)[0] || data.fieldName))]) {
           return (
             <Switch
-              checked={Boolean(query.toJSON().where[data.fieldName])}
+              checked={Boolean(query.toJSON().where[(fields.get(Object.keys(query.toJSON().where)[0] || data.fieldName))])}
               style={{ marginLeft: '10px' }}
               onChange={(e) => setFieldValue(e)}
             />
@@ -152,7 +150,8 @@ const ClouseView = (props) => {
         >
           {generateConstraintOptions(constraints, fields, data.fieldName)}
         </Select>
-        {generateInputByType(fields.get(data.fieldName))}
+        {generateInputByType((fields.get(Object.keys(query.toJSON().where)[0] || data.fieldName)))}
+
         <Button icon="close" onClick={() => deleteClouse(queryIndex)} />
 
       </span>

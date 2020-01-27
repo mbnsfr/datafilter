@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map, Record } from 'immutable';
-import DataFilterView from '../src/component/DataFilterView';
+// import DataFilterView from '../src/component/DataFilterView';
 import 'antd/dist/antd.css'
 import ClouseView from '../src/component/ClouseView'
 import Parse from 'parse';
@@ -66,19 +66,15 @@ const constraints = Map({
 
 });
 
-const filterData = Record({ op: 'and', childs: [] })();
-
-
-export const DataFilter = () => (
-  <DataFilterView
-    filterData={filterData}
-    constraints={constraints}
-    fields={fields}
-  />);
-
-
 const ClouseQuery = Parse.Object.extend('ClouseQuery');
 const query = new Parse.Query(ClouseQuery);
+
+export const Operand = () => (
+  <OprandView
+    filterData={Record({ op: 'and', childs: [] })()}
+    constraints={constraints}
+    fields={fields}
+  />)
 
 export const Clouse = () => (
   <ClouseView
@@ -87,10 +83,3 @@ export const Clouse = () => (
     fields={fields}
     constraints={constraints}
   />);
-
-export const Operand = () => (
-  <OprandView
-    filterData={Record({ op: 'and', childs: [] })()}
-    constraints={constraints}
-    fields={fields}
-  />)

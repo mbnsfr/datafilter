@@ -77,8 +77,8 @@ const setFieldName = ({ setData }) => (fieldName) => {
 };
 
 const init = (props) => Record({
-  fieldName: 'name',
-  fieldValue: undefined,
+  fieldName: Object.keys(props.query.toJSON().where)[0] || 'name',
+  fieldValue: Object.values(props.query.toJSON().where)[0] || undefined,
   query: props.query,
   selectedConstraint: 'EqualTo',
 });
