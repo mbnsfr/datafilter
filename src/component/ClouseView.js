@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Button, Input, DatePicker, Select, Switch,
-} from 'antd';
+import { Button, Input, DatePicker, Select, Switch, } from 'antd';
 import clouseController from '../controller/clouseController';
 import moment from 'moment'
 
@@ -51,43 +49,84 @@ const ClouseView = (props) => {
     setFieldValue,
   } = clouseController(props);
 
+  // updatedata(data, 'cluose')
+
   const generateInputByType = (fieldType) => {
     switch (fieldType) {
       case 'string':
-        return (
-          <Input
-            value={String(query.toJSON().where[data.fieldName]) || null}
-            style={{ width: '20vw' }}
-            placeholder="String"
-            onChange={(e) => setFieldValue(e.target.value)}
-          />
-        );
+        if (query.toJSON().where[data.fieldName]) {
+          return (
+            <Input
+              value={String(query.toJSON().where[data.fieldName])}
+              style={{ width: '20vw' }}
+              placeholder="String"
+              onChange={(e) => setFieldValue(e.target.value)}
+            />
+          )
+        } else {
+          return (
+            <Input
+              style={{ width: '20vw' }}
+              placeholder="String"
+              onChange={(e) => setFieldValue(e.target.value)}
+            />
+          )
+        }
       case 'time':
-        return (
-          <DatePicker
-            defaultValue={moment(String(query.toJSON().where[data.fieldName]), "YYYYMMDD") || null}
-            style={{ width: '10vw' }}
-            onChange={(date, dateString) => setFieldValue(dateString)}
-          />
-        );
+        if (query.toJSON().where[data.fieldName]) {
+          return (
+            <DatePicker
+              defaultValue={moment(String(query.toJSON().where[data.fieldName]), "YYYYMMDD")}
+              style={{ width: '10vw' }}
+              onChange={(date, dateString) => setFieldValue(dateString)}
+            />
+          )
+        } else {
+          return (
+            <DatePicker
+              style={{ width: '10vw' }}
+              onChange={(date, dateString) => setFieldValue(dateString)}
+            />
+          )
+        }
       case 'number':
-        return (
-          <Input
-            value={String(query.toJSON().where[data.fieldName]) || null}
-            style={{ width: '10vw' }}
-            placeholder="Number"
-            type="number"
-            onChange={(e) => setFieldValue(Number(e.target.value))}
-          />
-        );
+        if (query.toJSON().where[data.fieldName]) {
+          return (
+            <Input
+              value={String(query.toJSON().where[data.fieldName])}
+              style={{ width: '10vw' }}
+              placeholder="Number"
+              type="number"
+              onChange={(e) => setFieldValue(Number(e.target.value))}
+            />
+          )
+        } else {
+          return (
+            <Input
+              style={{ width: '10vw' }}
+              placeholder="Number"
+              type="number"
+              onChange={(e) => setFieldValue(Number(e.target.value))}
+            />
+          )
+        }
       case 'boolean':
-        return (
-          <Switch
-            checked={Boolean(query.toJSON().where[data.fieldName]) || false}
-            style={{ marginLeft: '10px' }}
-            onChange={(e) => setFieldValue(e)}
-          />
-        );
+        if (query.toJSON().where[data.fieldName]) {
+          return (
+            <Switch
+              checked={Boolean(query.toJSON().where[data.fieldName])}
+              style={{ marginLeft: '10px' }}
+              onChange={(e) => setFieldValue(e)}
+            />
+          )
+        } else {
+          return (
+            <Switch
+              style={{ marginLeft: '10px' }}
+              onChange={(e) => setFieldValue(e)}
+            />
+          )
+        }
 
       default:
         return <Input style={{ width: '10vw' }} disabled />;
@@ -122,11 +161,13 @@ const ClouseView = (props) => {
 };
 
 ClouseView.propTypes = {
+
   deleteClouse: PropTypes.func.isRequired,
   queryIndex: PropTypes.number.isRequired,
   fields: PropTypes.object.isRequired,
   constraints: PropTypes.object.isRequired,
-  query: PropTypes.object.isRequired
+  query: PropTypes.object.isRequired,
+
 };
 
 export default ClouseView;

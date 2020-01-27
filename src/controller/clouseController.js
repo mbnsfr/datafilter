@@ -1,9 +1,5 @@
-import {
-  Record,
-} from 'immutable';
-import {
-  withState, withHandlers, pipe,
-} from '../util';
+import { Record, } from 'immutable';
+import { withState, withHandlers, pipe, } from '../util';
 
 
 const setConstraint = ({ setData }) => (selectedConstraint) => {

@@ -1,22 +1,21 @@
-import Parse from 'parse';
-import {
-  Record,
-} from 'immutable';
-import {
-  withState, withHandlers, pipe,
-} from '../util';
+import { withState, withHandlers, pipe, } from '../util';
 
 const init = (props) => props.filterData;
 
-const deleteOperand = ({ setData,data }) => (index) => {
-  console.log(data)
+const deleteOperand = ({ setData }) => (index) => {
   setData((d) => d.set('childs', d.childs.filter((value, i) => i !== index)));
+}
+
+const updatedata = ({ setData, data }) => (filterData) => {
+  console.log('on update', data)
+  setData(filterData)
 }
 
 const dataFilterController = pipe(
   withState(init),
   withHandlers({
     deleteOperand,
+    updatedata,
   }),
 );
 

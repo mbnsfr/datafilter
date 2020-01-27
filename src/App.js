@@ -63,6 +63,7 @@ const constraints = Map({
 const filterData = Record({ op: 'and', childs: [] })();
 
 function App() {
+  console.log('filterData in app', filterData)
   return (
     <DataFilterView
       filterData={filterData}

@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Icon, Button, Input, Select, Tree,
-} from 'antd';
+import { Icon, Button, Input, Select, Tree, } from 'antd';
 import oprandController from '../controller/oprandController';
 import ClouseView from './ClouseView';
 import filterIcon from '../svg/filter-icon';
@@ -19,13 +17,14 @@ const OprandView = (props) => {
     data,
     addOprand,
     changeOprand,
-    deleteOperand,
   } = oprandController(props);
 
   const {
+    deleteOperand,
     fields,
     constraints,
     operandIndex,
+    updatedata,
   } = props;
 
   const OprandBox = () => (
@@ -40,16 +39,19 @@ const OprandView = (props) => {
         <Icon component={filterIcon} />
       </Button>
       <Button icon="close" onClick={() => deleteOperand(operandIndex)}></Button>
+      <Button onClick={() => updatedata(data)}>on update</Button>
     </InputGroup>
 
   );
+
+  console.log('index', operandIndex)
 
   return (
     <Tree
       defaultExpandAll={true}>
       {data &&
-        <TreeNode title={<OprandBox addClouse={addClouse} />}>v
-        {data &&
+        <TreeNode title={<OprandBox addClouse={addClouse} />}>
+          {data &&
             data.childs.map((item, index) => {
               if (item.op && (item.childs.length >= 0)) {
                 return (
@@ -61,6 +63,8 @@ const OprandView = (props) => {
                         constraints={props.constraints}
                         fields={props.fields}
                         operandIndex={index}
+                        deleteOperand={deleteOperand}
+                        updatedata={updatedata}
                       />
                     )}
                   />
@@ -92,9 +96,13 @@ const OprandView = (props) => {
 };
 
 OprandView.propTypes = {
+
   fields: PropTypes.object.isRequired,
   constraints: PropTypes.object.isRequired,
   operandIndex: PropTypes.object.isRequired,
+  deleteOperand: PropTypes.func.isRequired,
+  updatedata: PropTypes.func.isRequired,
+
 };
 
 export default OprandView;
